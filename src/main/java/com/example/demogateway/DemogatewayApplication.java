@@ -23,12 +23,13 @@ public class DemogatewayApplication {
 		return "This is a fallback";
 	}
 
+	//http://localhost:8082     http://httpbin.org
 	@Bean
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		//@formatter:off
 		return builder.routes()
 				.route("path_route", r -> r.path("/get")
-						.uri("http://httpbin.org"))
+						.uri("http://localhost:8082"))
 				.route("host_route", r -> r.host("*.myhost.org")
 						.uri("http://httpbin.org"))
 				.route("rewrite_route", r -> r.host("*.rewrite.org")

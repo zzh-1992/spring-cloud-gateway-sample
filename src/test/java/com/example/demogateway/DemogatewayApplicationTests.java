@@ -1,5 +1,7 @@
 package com.example.demogateway;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
@@ -7,9 +9,6 @@ import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.Map;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.web.reactive.function.client.ExchangeFilterFunctions.basicAuthentication;
@@ -29,13 +28,16 @@ public class DemogatewayApplicationTests {
 	@Test
 	@SuppressWarnings("unchecked")
 	public void pathRouteWorks() {
-		client.get().uri("/get")
+		WebTestClient.BodyContentSpec bodyContentSpec = client.get().uri("/get").header("JwtToken1","TokenValue")
 				.exchange()
 				.expectStatus().isOk()
-				.expectBody(Map.class)
+				.expectBody();
+				/*.expectBody(Object.class)
 				.consumeWith(result -> {
-					assertThat(result.getResponseBody()).isNotEmpty();
-				});
+					System.out.println(result.getResponseBody());
+					assertThat(result.getResponseBody());
+				});*/
+		System.out.println("");
 	}
 
 	@Test
